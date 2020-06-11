@@ -62,7 +62,7 @@ namespace UnitTestingExamples
                 }
                 catch (IOException)
                 {
-                    return null;
+                    return Enumerable.Empty<string>();
                 }
             }
         }
@@ -78,7 +78,9 @@ namespace UnitTestingExamples
         {
             // Arrange
             var mocker = new AutoMocker();
-            mocker.Setup<ILineSource, IEnumerable<string>>(x => x.GetLines()).Returns(new[] { "first,second,third", "1,2,3" });
+            mocker
+                .Setup<ILineSource, IEnumerable<string>>(x => x.GetLines())
+                .Returns(new[] { "first,second,third", "1,2,3" });
 
             CsvParser parser = mocker.CreateInstance<CsvParser>();
 

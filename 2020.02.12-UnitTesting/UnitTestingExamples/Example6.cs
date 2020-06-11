@@ -63,7 +63,7 @@ namespace UnitTestingExamples
                 }
                 catch (IOException)
                 {
-                    return null;
+                    return Enumerable.Empty<string>();
                 }
             }
         }
@@ -71,6 +71,22 @@ namespace UnitTestingExamples
         #endregion SUT
 
         #region Tests
+
+        #region Simulator
+
+        public class LineSourceSimulator : ILineSource
+        {
+            public LineSourceSimulator(string[] lines)
+            {
+                Lines = lines ?? Array.Empty<string>();
+            }
+
+            public string[] Lines { get; }
+
+            public IEnumerable<string> GetLines() => Lines;
+        }
+
+        #endregion Simulator
 
         public TestContext TestContext { get; set; }
 
@@ -126,7 +142,7 @@ namespace UnitTestingExamples
             }
 
             [TestMethod]
-            public void ReturnsNullOnFailure()
+            public void ReturnsEmptyOnFailure()
             {
                 // Arrange
                 ILineSource lineSource = GetLineSourceWithoutData();
@@ -135,7 +151,7 @@ namespace UnitTestingExamples
                 IEnumerable<string> lines = lineSource.GetLines();
 
                 // Assert
-                Assert.IsNull(lines);
+                Assert.IsFalse(lines.Any());
             }
         }
 
@@ -174,18 +190,13 @@ namespace UnitTestingExamples
                 => new FileLineSource("FileDoesNotExist" + Guid.NewGuid());
         }
 
-        public static IEnumerable<object[]> LineSourcesWithoutData()
-        {
-            yield return new object[] { new LineSourceSimulator(null) };
-            yield return new object[] { new FileLineSource("FileDoesNotExist" + Guid.NewGuid()) };
-        }
-
         #endregion Simulator Tests v1
 
         #region Simulator Tests v2
+
         [TestMethod]
         [DynamicData(nameof(LineSourcesWithoutData), DynamicDataSourceType.Method)]
-        public void ReturnsNullOnFailure(ILineSource lineSource)
+        public void ReturnsEmptyOnFailure(ILineSource lineSource)
         {
             // Arrange
 
@@ -193,7 +204,13 @@ namespace UnitTestingExamples
             IEnumerable<string> lines = lineSource.GetLines();
 
             // Assert
-            Assert.IsNull(lines);
+            Assert.IsFalse(lines.Any());
+        }
+
+        public static IEnumerable<object[]> LineSourcesWithoutData()
+        {
+            yield return new object[] { new LineSourceSimulator(null) };
+            yield return new object[] { new FileLineSource("FileDoesNotExist" + Guid.NewGuid()) };
         }
 
         #endregion Simulator Tests v2
@@ -202,7 +219,7 @@ namespace UnitTestingExamples
 
         [TestMethod]
         [LineSourceData]
-        public void ReturnsNullOnFailureFromAttributeSource(ILineSource lineSource)
+        public void ReturnsEmptyOnFailureFromAttributeSource(ILineSource lineSource)
         {
             // Arrange
 
@@ -210,7 +227,7 @@ namespace UnitTestingExamples
             IEnumerable<string> lines = lineSource.GetLines();
 
             // Assert
-            Assert.IsNull(lines);
+            Assert.IsFalse(lines.Any());
         }
 
         public class LineSourceDataAttribute : Attribute, ITestDataSource
@@ -230,21 +247,5 @@ namespace UnitTestingExamples
         #endregion Simulator Tests v3
 
         #endregion Tests
-
-        #region Simulator
-
-        public class LineSourceSimulator : ILineSource
-        {
-            public LineSourceSimulator(string[] lines)
-            {
-                Lines = lines;
-            }
-
-            public string[] Lines { get; }
-
-            public IEnumerable<string> GetLines() => Lines;
-        }
-
-        #endregion Simulator
     }
 }

@@ -1,12 +1,8 @@
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Moq.AutoMock;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace UnitTestingExamples
@@ -62,33 +58,6 @@ namespace UnitTestingExamples
 
         #region Tests
 
-        public TestContext TestContext { get; set; }
-
-        [TestMethod]
-        public void WhenErrorOccursItIsLogged()
-        {
-            // Arrange
-            var mocker = new AutoMocker();
-            var lineSource = new LineSourceSimulator(null);
-            lineSource.WithError("Crash");
-            mocker.Use<ILineSource>(lineSource);
-
-            //Force the async call to complete synchronously 
-            mocker.Setup<IAsyncLogger, Task>(x => x.LogAsync("Crash"))
-                .Returns(Task.CompletedTask);
-
-            var parser = mocker.CreateInstance<CsvParser>();
-
-            // Act
-            var rows = parser.Parse().ToArray();
-
-            // Assert
-            Assert.AreEqual(0, rows.Length);
-            mocker.VerifyAll();
-        }
-
-        #endregion Tests
-
         #region Simulator
 
         public class LineSourceSimulator : ILineSource
@@ -98,7 +67,7 @@ namespace UnitTestingExamples
                 Lines = lines;
             }
 
-            public string ErrorMessage { get; set; }
+            public string ErrorMessage { get; private set; }
 
             public string[] Lines { get; }
 
@@ -121,5 +90,33 @@ namespace UnitTestingExamples
         }
 
         #endregion Simulator
+
+        public TestContext TestContext { get; set; }
+
+        [TestMethod]
+        public void WhenErrorOccursItIsLogged()
+        {
+            // Arrange
+            var mocker = new AutoMocker();
+            var lineSource = new LineSourceSimulator(null);
+            lineSource.WithError("Crash");
+            mocker.Use<ILineSource>(lineSource);
+
+            //Force the async call to complete synchronously 
+            mocker
+                .Setup<IAsyncLogger, Task>(x => x.LogAsync("Crash"))
+                .Returns(Task.CompletedTask);
+
+            var parser = mocker.CreateInstance<CsvParser>();
+
+            // Act
+            var rows = parser.Parse().ToArray();
+
+            // Assert
+            Assert.AreEqual(0, rows.Length);
+            mocker.VerifyAll();
+        }
+
+        #endregion Tests
     }
 }

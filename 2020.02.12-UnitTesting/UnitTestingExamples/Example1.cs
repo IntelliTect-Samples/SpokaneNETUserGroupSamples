@@ -22,7 +22,8 @@ namespace UnitTestingExamples
 
             public IEnumerable<string[]> Parse()
             {
-                using var reader = new StreamReader(File.OpenRead());
+                using var fileStream = File.OpenRead();
+                using var reader = new StreamReader(fileStream);
                 while (!reader.EndOfStream)
                 {
                     yield return ParseLine(reader.ReadLine());

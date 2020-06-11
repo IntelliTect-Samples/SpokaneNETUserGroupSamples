@@ -57,7 +57,7 @@ namespace UnitTestingExamples
                 }
                 catch (IOException)
                 {
-                    return null;
+                    return Enumerable.Empty<string>();
                 }
             }
         }
@@ -72,11 +72,13 @@ namespace UnitTestingExamples
         public void CanReadCsvData()
         {
             // Arrange
-            var readFileMock = new Mock<ILineSource>();
-            readFileMock.Setup(x => x.GetLines()).Returns(new[] { "first,second,third", "1,2,3" });
+            var lineSourceMock = new Mock<ILineSource>();
+            lineSourceMock
+                .Setup(x => x.GetLines())
+                .Returns(new[] { "first,second,third", "1,2,3" });
 
-            ILineSource readFile = readFileMock.Object;
-            var parser = new CsvParser(readFile);
+            ILineSource lineSource = lineSourceMock.Object;
+            var parser = new CsvParser(lineSource);
 
             // Act
             List<string[]> parsedRows = parser.Parse().ToList();
@@ -86,7 +88,7 @@ namespace UnitTestingExamples
             Assert.AreEqual(2, parsedRows.Count);
             CollectionAssert.AreEqual(new[] { "first", "second", "third" }, parsedRows[0]);
             CollectionAssert.AreEqual(new[] { "1", "2", "3" }, parsedRows[1]);
-            readFileMock.Verify(x => x.GetLines(), Times.Once());
+            lineSourceMock.Verify(x => x.GetLines(), Times.Once());
         }
 
         #endregion Tests

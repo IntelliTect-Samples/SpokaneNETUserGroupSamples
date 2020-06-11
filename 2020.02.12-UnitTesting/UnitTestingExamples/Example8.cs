@@ -17,7 +17,7 @@ namespace UnitTestingExamples
 
         public interface ILineSource
         {
-            Task<IEnumerable<string>> GetLines();
+            Task<IEnumerable<string>> GetLinesAsync();
         }
 
         public class WebLineSource : ILineSource
@@ -31,7 +31,7 @@ namespace UnitTestingExamples
             private Uri Uri { get; }
             private IHttpClientFactory HttpClientFactory { get; }
 
-            public async Task<IEnumerable<string>> GetLines()
+            public async Task<IEnumerable<string>> GetLinesAsync()
             {
                 HttpClient httpClient = HttpClientFactory.CreateClient();
                 try
@@ -41,7 +41,7 @@ namespace UnitTestingExamples
                 }
                 catch (HttpRequestException)
                 {
-                    return null;
+                    return Enumerable.Empty<string>();
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace UnitTestingExamples
             var webLineSource = mocker.CreateInstance<WebLineSource>();
 
             // Act
-            string[] lines = (await webLineSource.GetLines()).ToArray();
+            string[] lines = (await webLineSource.GetLinesAsync()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[] { "42", "43" }, lines);
