@@ -1,5 +1,8 @@
 
 /*
+ * Source Code:
+ * https://github.com/IntelliTect-Samples/SpokaneNETUserGroupSamples/tree/master/2020.11.10-CShap9
+ * 
  * Other C# 9 Features Not Covered here
  * - Native sized integers
  * - Function pointers
