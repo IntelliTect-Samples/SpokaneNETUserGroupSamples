@@ -6,15 +6,18 @@ namespace CSharp9
     {
         public class FinglePrint
         {
-            public string CreatedBy { get; set; }
+            public string CreatedBy { get; }
 
-            public string? ModifiedBy { get; set; }
+            public string? ModifiedBy { get; init; }
 
             public FinglePrint(string createdBy, string? modifiedBy = null)
             {
                 CreatedBy = createdBy;
                 ModifiedBy = modifiedBy;
             }
+
+            public FinglePrint With(string? modifiedBy)
+                => new(CreatedBy, modifiedBy);
         }
 
         [Fact]
@@ -27,8 +30,8 @@ namespace CSharp9
         public void UpdateProperties()
         {
             FinglePrint? finglePrint = CreateFinglePrint();
-            finglePrint.CreatedBy = "Kevin";
-            finglePrint.ModifiedBy = "Humperdink";
+            //finglePrint.CreatedBy = "Kevin";
+            //finglePrint.ModifiedBy = "Humperdink";
         }
 
         private static FinglePrint CreateFinglePrint(
@@ -46,7 +49,8 @@ namespace CSharp9
         {
             FinglePrint finglePrint = CreateFinglePrint();
 
-            //FinglePrint finglePrint2 = fingerPrint.With("Buttercup");
+            FinglePrint finglePrint2 = finglePrint.With("Buttercup");
         }
     }
+
 }

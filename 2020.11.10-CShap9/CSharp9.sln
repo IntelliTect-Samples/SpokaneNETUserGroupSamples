@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp9", "CSharp9\CSharp9.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator.NullChecks", "CodeGenerator.NullChecks\CodeGenerator.NullChecks.csproj", "{158696D5-BF62-404B-B95F-480F36197372}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopLevel", "TopLevel\TopLevel.csproj", "{7BE58836-8DE7-4E87-9CE8-0309DB9E9B12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{158696D5-BF62-404B-B95F-480F36197372}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{158696D5-BF62-404B-B95F-480F36197372}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{158696D5-BF62-404B-B95F-480F36197372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE58836-8DE7-4E87-9CE8-0309DB9E9B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE58836-8DE7-4E87-9CE8-0309DB9E9B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE58836-8DE7-4E87-9CE8-0309DB9E9B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE58836-8DE7-4E87-9CE8-0309DB9E9B12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
