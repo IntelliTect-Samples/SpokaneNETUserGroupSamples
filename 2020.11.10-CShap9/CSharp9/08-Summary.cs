@@ -14,6 +14,9 @@
  * - What's new in C# 9.0
  *  https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-9
  * 
+ * - C# 9.0 Proposal
+ *  https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/records
+ *
  * - Source Generators Cookbook
  *  https://github.com/dotnet/roslyn/blob/master/docs/features/source-generators.cookbook.md
  *  
