@@ -1,0 +1,9 @@
+<app-login message='Hi there'></app-login>
+
+<p>products</p>
+
+<div *ngFor="let product of productList" style="margin-top: 10px;">
+  <div class="product-col">Name: {{ product.name }}</div>
+  <div class="product-col">Quantity: {{ product.quantity }}</div>
+  <div class="product-col"><button (click)="showProductDetails(product.id)">Details</button></div>
+</div>

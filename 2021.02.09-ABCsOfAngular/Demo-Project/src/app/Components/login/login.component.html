@@ -1,0 +1,16 @@
+<ng-container *ngIf="!dataService.userLoggedIn">
+  <p>login!</p>
+
+  <div class="login-window">
+    <div>Username: <input type="text" [(ngModel)]="username" /> </div>
+    <div>Password: <input type="password" [(ngModel)]="password" /> </div>
+    <div><button style="margin-top: 5px;" [disabled]="!username || !password" (click)="login()">Login</button></div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="dataService.userLoggedIn">
+  User {{ dataService.username }} logged in.
+</ng-container>
+
+{{ message }}
+<!-- <a [routerLink]="['/page-not-found']" routerLinkActive="router-link-active">Page not found</a> -->

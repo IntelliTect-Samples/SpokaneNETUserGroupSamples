@@ -1,0 +1,9 @@
+<app-login [message]="'this is awesome'" (outgoing)="handleOutgoing($event)"></app-login>
+
+<p>product details</p>
+
+<div style="margin-top: 10px;">
+  <div class="product-col">Name: {{ product.name }}</div>
+  <div class="product-col">Quantity: {{ product.quantity }}</div>
+  <div class="product-col">Location: {{ product.location }} </div>
+</div>
