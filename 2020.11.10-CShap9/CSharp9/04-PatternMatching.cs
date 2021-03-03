@@ -23,7 +23,7 @@ namespace CSharp9
         [Fact]
         public void NegatedPatterns()
         {
-            Action<string, string> dispardParameter = (_, _) => { };
+            Action<string, string> discardParameter = (_, _) => { };
 
             string defaultValue = "Default";
             Enumerable.Range(0, 10)
