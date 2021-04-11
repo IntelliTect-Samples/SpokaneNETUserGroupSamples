@@ -19,7 +19,7 @@ namespace FileConverter
             OutputType outputType = OutputType.Yaml,
             IConsole console = null)
         {
-            console.Out.WriteLine($"Processing {inputFile.FullName} ({outputType}) => {outputDirectory.FullName}");
+            console.Out.WriteLine($"Processing {inputFile?.FullName} ({outputType}) => {outputDirectory?.FullName}");
         }
     }
 
