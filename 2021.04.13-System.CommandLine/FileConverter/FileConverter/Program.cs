@@ -1,4 +1,5 @@
-﻿using System.CommandLine;
+using System;
+using System.CommandLine;
 using System.CommandLine.IO;
 using System.IO;
 
@@ -13,12 +14,13 @@ namespace FileConverter
         /// <param name="outputDirectory">The output directory to covert files into.</param>
         /// <param name="outputType">The conversion type.</param>
         /// <param name="console">Generated console.</param>
-        static void Main(
+        public static void Main(
             FileInfo inputFile, 
             DirectoryInfo outputDirectory,
             OutputType outputType = OutputType.Yaml,
             IConsole console = null)
         {
+            //Do cool stuff here
             console.Out.WriteLine($"Processing {inputFile?.FullName} ({outputType}) => {outputDirectory?.FullName}");
         }
     }
@@ -26,8 +28,8 @@ namespace FileConverter
     public enum OutputType
     {
         Unknown,
-        Json,
+        Yaml,
         Csv,
-        Yaml
+        Json
     }
 }
