@@ -1,7 +1,7 @@
 
 /*
  * Source Code:
- * https://github.com/IntelliTect-Samples/SpokaneNETUserGroupSamples/tree/master/2020.11.10-CShap9
+ * https://github.com/IntelliTect-Samples/SpokaneNETUserGroupSamples/tree/master/2021.05.04-CSharp9
  * 
  * Other C# 9 Features Not Covered here
  * - Native sized integers
