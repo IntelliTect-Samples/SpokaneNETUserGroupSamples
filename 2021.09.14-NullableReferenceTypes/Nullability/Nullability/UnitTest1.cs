@@ -1,5 +1,42 @@
+using System.ComponentModel;
 using Xunit;
 namespace Nullability;
+
+public class Person2 : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+    private string _FirstName;
+    public string FirstName
+    {
+        get => _FirstName;
+        set
+        {
+            if (_FirstName != value)
+            {
+                _FirstName = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(FirstName)));
+            }
+        }
+    }
+
+    public string LastName { get; init; }
+
+    public DateTime DateOfBirth { get; }
+}
+
+public class PersonTests
+{
+    public PersonTests(string fullName)
+    {
+
+    }
+
+    public PersonTests(string firstName, string lastName, DateTime? dob = null)
+    {
+
+    }
+}
 
 public class UnitTest1
 {

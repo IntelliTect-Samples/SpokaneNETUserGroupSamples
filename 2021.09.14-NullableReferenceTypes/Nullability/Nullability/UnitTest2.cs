@@ -1,8 +1,10 @@
+using System.ComponentModel;
 using Xunit;
 namespace Nullability;
 
 public class UnitTest2
 {
+
     [Fact]
     public void CheckingForNull()
     {
@@ -18,7 +20,6 @@ public class UnitTest2
         Assert.Equal("42", isNull ?? "42");
     }
 
-    public object? Foo { get; set; }
     [Fact]
     public void CheckingForNotNull()
     {
@@ -69,5 +70,18 @@ public class UnitTest2
         }
     }
 
+    [Fact]
+    public void NullConditionalOperator()
+    {
+        object? foo = null;
 
+        string? @string = foo?.ToString();
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged = delegate { };
+    [Fact]
+    public void RaisingAnEvent()
+    {
+        PropertyChanged(this, new PropertyChangedEventArgs("MyProperty"));
+    }
 }
