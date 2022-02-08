@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1C355C65-8CC3-463C-A7C5-46AEAF8C6ABD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelController.Api", "src\PixelController.Api\PixelController.Api.csproj", "{2319C811-7E19-44A6-999B-D588B79DBF4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelControllerConsole", "src\PixelControllerConsole\PixelControllerConsole.csproj", "{C415D785-2D6E-4652-801E-CA8EAD42D7A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelController.Web", "src\PixelController.Web\PixelController.Web.csproj", "{62270FF9-3DAB-46AB-A154-E20AA8DDEA3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelController.Yarp", "src\PixelController.Yarp\PixelController.Yarp.csproj", "{DFB96BB5-F815-4BD2-B1E3-0E441D1C943F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2319C811-7E19-44A6-999B-D588B79DBF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2319C811-7E19-44A6-999B-D588B79DBF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2319C811-7E19-44A6-999B-D588B79DBF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2319C811-7E19-44A6-999B-D588B79DBF4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C415D785-2D6E-4652-801E-CA8EAD42D7A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C415D785-2D6E-4652-801E-CA8EAD42D7A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C415D785-2D6E-4652-801E-CA8EAD42D7A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C415D785-2D6E-4652-801E-CA8EAD42D7A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62270FF9-3DAB-46AB-A154-E20AA8DDEA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62270FF9-3DAB-46AB-A154-E20AA8DDEA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62270FF9-3DAB-46AB-A154-E20AA8DDEA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62270FF9-3DAB-46AB-A154-E20AA8DDEA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB96BB5-F815-4BD2-B1E3-0E441D1C943F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB96BB5-F815-4BD2-B1E3-0E441D1C943F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB96BB5-F815-4BD2-B1E3-0E441D1C943F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB96BB5-F815-4BD2-B1E3-0E441D1C943F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2319C811-7E19-44A6-999B-D588B79DBF4F} = {1C355C65-8CC3-463C-A7C5-46AEAF8C6ABD}
+		{C415D785-2D6E-4652-801E-CA8EAD42D7A2} = {1C355C65-8CC3-463C-A7C5-46AEAF8C6ABD}
+		{62270FF9-3DAB-46AB-A154-E20AA8DDEA3D} = {1C355C65-8CC3-463C-A7C5-46AEAF8C6ABD}
+		{DFB96BB5-F815-4BD2-B1E3-0E441D1C943F} = {1C355C65-8CC3-463C-A7C5-46AEAF8C6ABD}
+	EndGlobalSection
+EndGlobal

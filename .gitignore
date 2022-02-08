@@ -273,3 +273,14 @@ __pycache__/
 # tools/
 
 # End of https://www.gitignore.io/api/aspnetcore
+
+##
+## Visual Studio Code
+##
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+[Dd]eploy/
