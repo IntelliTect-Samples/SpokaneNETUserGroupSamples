@@ -1,0 +1,9 @@
+Links refernced during talk
+- Blog followed for doing the wiring to control the lights (https://dordnung.de/raspberrypi-ledstrip/ws2812)
+- C# wrapper used (https://github.com/kenssamson/rpi-ws281x-csharp)
+  - Make sure to look in the lib directory for how to get the native shared object created (https://github.com/kenssamson/rpi-ws281x-csharp/tree/master/lib)
+- Handy utility for generating dev certs (https://github.com/BenMorel/dev-certificates)
+- Blog post used to reference how to setup systemd (https://dev.to/ianknighton/hosting-a-net-core-app-with-nginx-and-let-s-encrypt-1m50)
+- Documentation on YARP which was used instead of nginx for doing reverse proxy (https://microsoft.github.io/reverse-proxy/index.html)
+- Lights that were demo'd (https://smile.amazon.com/gp/product/B07FVR6W71)
+    - Extra url that got mentioned during the talk for places to find LED lights (https://www.btf-lighting.com/)

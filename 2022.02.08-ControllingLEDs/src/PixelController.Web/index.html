@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Controller</title>
+    <!-- Stylesheets -->
+    <% for (var filename in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[filename] %>" rel="stylesheet" />
+    <% } %>
+    <!-- End Stylesheets -->
+    <style>
+        [x-cloak] { display: none; }
+    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div x-cloak x-data="initialize" x-init="mounted" class='m-4'>
+        <button class='p-2 border-2 border-indigo-600 rounded-t-lg' :class="{ 'bg-indigo-300 text-white': tab === 'color' }" @click="tab = 'color'">Color</button>
+        <button class='p-2 border-2 border-indigo-600 rounded-t-lg' :class="{ 'bg-indigo-300 text-white': tab === 'settings' }" @click="tab = 'settings'">Settings</button>
+        <div class='p-6 border-2 border-indigo-600'>
+            <div x-show="tab === 'color'">
+                <h1 class='text-3xl'>Color</h1>
+                <div class='flex'>
+                    <div>
+                        <div id='picker'></div>
+                        <input class='p-1 border-2 border-indigo-400 rounded-lg' type='text' x-model='hexValue' />
+                        <div class='w-8 h-8 border-2 border-black rounded-lg' :style="`background-color: ${hexValue};`"></div>
+                        <button @click='addColor()' class="p-2 border-2 border-green-600 rounded-lg">Add Color</button>
+                    </div>
+                    <div>
+                        <div class='flex flex-row'
+                            @drop.prevent='dropPrevent()'
+                            @dragover.prevent='$event.dataTransfer.dropEffect = "move"'>
+                            <template x-for="(item, index) in colors" :key="index">
+                                <div class='relative' draggable="true" @dragstart='draggingIndex = index' @dragend='draggingIndex = null'>
+                                    <div class='w-8 h-8 ml-2 border-2 border-black rounded-lg' @click="removeColor(index)" :style="`background-color: #${item};`"></div>
+                                    <div class="absolute inset-0 opacity-50" x-show.transition="draggingIndex !== null"
+                                        :class="{'bg-blue-200': droppingIndex === index}"
+                                        @dragenter.prevent="if(index !== draggingIndex) {droppingIndex = index}"
+                                        @dragleave="if(droppingIndex === index) droppingIndex = null" style="display: none;"></div>
+                                </div>
+                            </template>
+                        </div>
+                        <button @click='saveColors()' class="p-2 border-2 border-green-600 rounded-lg">Save Colors</button>
+                    </div>
+                    <div>
+                        <button @click="stop()">Stop</button>
+                        <button @click="start()">Start</button>
+                    </div>
+                </div>
+            </div>
+            <div x-show="tab === 'settings'">
+                <h1 class='text-3xl'>Settings</h1>
+                <span>Brightness: </span><span x-text='settings.brightness'></span><br />
+                <span>Pattern: </span><span x-text='settings.pattern'></span><br />
+                <span>Duration: </span><span x-text='settings.duration'></span><br />
+                <span>Steps: </span><span x-text='settings.steps'></span>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+    <!-- Scripts -->
+    <% for (var index in htmlWebpackPlugin.files.js) { %>
+    <script src="<%= htmlWebpackPlugin.files.js[index] %>"></script>
+    <% } %>
+    <!-- End Scripts -->
+    <script>
+        var colorPicker = new iro.ColorPicker('#picker');
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('initialize', () => ({
+                settings: {},
+                hexValue: '#ff00ff',
+                tab: 'color',
+                colors: [],
+                draggingIndex: null,
+                droppingIndex: null,
+                onColorChange(color) {
+                    document.querySelector('[x-data]')._x_dataStack[0].hexValue = color.hexString;
+                },
+                mounted() {
+                    axios.get('https://pixelapi.dotnetsug.dev/')
+                        .then((response) => {
+                            this.settings = response.data;
+                            this.colors = this.settings.colors;
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });             
+
+                        colorPicker.color.set(this.hexValue);
+
+                        this.$watch("hexValue", value => { if (value.length == 7) colorPicker.color.set(value);});
+                        colorPicker.on('color:change', this.onColorChange);
+                },
+                addColor() {
+                    this.colors.push(this.hexValue.substring(1));
+                },
+                removeColor(index) {
+                    this.colors.splice(index, 1);
+                },
+                saveColors() {
+                    axios.post('https://pixelapi.dotnetsug.dev/api/colors', this.colors)
+                        .then((response) => {
+                            this.settings = response.data
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                },
+                start() {
+                    axios.post('https://pixelapi.dotnetsug.dev/api/turnOn')
+                        .then((response) => {
+                            console.log(response);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                },
+                stop() {
+                    axios.post('https://pixelapi.dotnetsug.dev/api/turnOff')
+                        .then((response) => {
+                            console.log(response);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                },
+                dropPrevent() {
+                    if (this.draggingIndex !== null && this.droppingIndex !== null) {
+                        if (this.draggingIndex < this.droppingIndex) {
+                            this.colors = [
+                                ...this.colors.slice(0, this.draggingIndex),
+                                ...this.colors.slice(this.draggingIndex + 1, this.droppingIndex + 1),
+                                this.colors[this.draggingIndex],
+                                ...this.colors.slice(this.droppingIndex + 1)];
+                        }
+                        else {
+                            this.colors = [
+                                ...this.colors.slice(0, this.droppingIndex),
+                                this.colors[this.draggingIndex],
+                                ...this.colors.slice(this.droppingIndex, this.draggingIndex),
+                                ...this.colors.slice(this.draggingIndex + 1)]
+                        };
+                        this.droppingIndex = null;
+                    }
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
