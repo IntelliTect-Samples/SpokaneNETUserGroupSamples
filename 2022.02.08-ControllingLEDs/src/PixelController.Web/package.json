@@ -18,7 +18,7 @@
       "fibers": "5.0.1",
       "html-webpack-plugin": "5.5.0",
       "mini-css-extract-plugin": "2.5.3",
-      "postcss": "8.4.6",
+      "postcss": "8.4.31",
       "postcss-loader": "6.2.1",
       "style-loader": "3.3.1",
       "stylelint": "15.10.1",
